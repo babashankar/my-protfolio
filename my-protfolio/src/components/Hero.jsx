@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { ChevronDown, Github, Linkedin, Mail, Phone } from 'lucide-react'
+import EnhancedCape from './EnhancedCape'
 
 const Hero = () => {
     return (
@@ -9,10 +10,10 @@ const Hero = () => {
             <div className="absolute inset-0">
                 {/* Bat Signal in background */}
                 <motion.div
-                    className="absolute top-20 right-20 w-64 h-64 opacity-10"
+                    className="absolute top-10 md:top-20 right-5 md:right-20 w-32 md:w-64 h-32 md:h-64 opacity-5 md:opacity-10"
                     animate={{
                         scale: [1, 1.1, 1],
-                        opacity: [0.1, 0.2, 0.1],
+                        opacity: [0.05, 0.15, 0.05],
                     }}
                     transition={{
                         duration: 4,
@@ -23,17 +24,17 @@ const Hero = () => {
                     <div className="w-full h-full bg-batman-gold rounded-full blur-3xl"></div>
                 </motion.div>
 
-                {/* Floating particles */}
-                {[...Array(20)].map((_, i) => (
+                {/* Floating particles - responsive count */}
+                {[...Array(window.innerWidth < 768 ? 10 : 20)].map((_, i) => (
                     <motion.div
                         key={i}
-                        className="absolute w-1 h-1 bg-batman-gold rounded-full"
+                        className="absolute w-0.5 md:w-1 h-0.5 md:h-1 bg-batman-gold rounded-full"
                         style={{
                             left: `${Math.random() * 100}%`,
                             top: `${Math.random() * 100}%`,
                         }}
                         animate={{
-                            y: [0, -100, 0],
+                            y: [0, -50, 0],
                             opacity: [0, 1, 0],
                         }}
                         transition={{
@@ -43,13 +44,31 @@ const Hero = () => {
                         }}
                     />
                 ))}
+
+                {/* Gotham skyline silhouette */}
+                <div className="absolute bottom-0 left-0 right-0 h-32 md:h-48 bg-gradient-to-t from-batman-black via-batman-dark/80 to-transparent opacity-60">
+                    <div className="absolute bottom-0 left-0 right-0 h-20 md:h-32 bg-gradient-to-t from-batman-black to-transparent">
+                        {/* Building silhouettes */}
+                        {Array.from({ length: window.innerWidth < 768 ? 8 : 15 }).map((_, i) => (
+                            <div
+                                key={i}
+                                className="absolute bottom-0 bg-batman-dark opacity-40"
+                                style={{
+                                    left: `${i * (100 / (window.innerWidth < 768 ? 8 : 15))}%`,
+                                    width: `${4 + Math.random() * 6}%`,
+                                    height: `${30 + Math.random() * 70}%`,
+                                }}
+                            />
+                        ))}
+                    </div>
+                </div>
             </div>
 
-            <div className="container mx-auto px-6 pt-32 pb-16 relative z-10">
-                <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen">
+            <div className="container-responsive pt-20 md:pt-32 pb-8 md:pb-16 relative z-10">
+                <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-screen">
                     {/* Text Content */}
                     <motion.div
-                        className="space-y-8"
+                        className="space-y-6 md:space-y-8 text-center lg:text-left order-2 lg:order-1"
                         initial={{ opacity: 0, x: -50 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 1 }}
@@ -59,19 +78,18 @@ const Hero = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.3 }}
                         >
-                            <h3 className="text-batman-gold font-gotham text-lg mb-2">Hello, I'm</h3>
-                            <h1 className="font-batman text-6xl lg:text-8xl font-bold mb-4">
-                                <span className="gradient-text">BABA</span>
-                                <br />
-                                <span className="text-white">SHANKAR</span>
+                            <h3 className="text-batman-gold font-gotham text-sm md:text-lg mb-2">Hello, I'm</h3>
+                            <h1 className="font-batman text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-4 leading-tight">
+                                <span className="gradient-text block">BABA</span>
+                                <span className="text-white block">SHANKAR</span>
                             </h1>
-                            <h2 className="text-2xl lg:text-3xl text-gray-300 font-gotham font-light">
+                            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-300 font-gotham font-light leading-relaxed">
                                 Software Engineer at <span className="text-batman-gold">Akamai Technologies</span>
                             </h2>
                         </motion.div>
 
                         <motion.p
-                            className="text-xl text-gray-400 max-w-2xl leading-relaxed"
+                            className="text-base md:text-lg lg:text-xl text-gray-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed px-4 lg:px-0"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.6 }}
@@ -81,14 +99,14 @@ const Hero = () => {
                         </motion.p>
 
                         <motion.div
-                            className="flex flex-wrap gap-4"
+                            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start px-4 lg:px-0"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.9 }}
                         >
                             <motion.a
                                 href="#contact"
-                                className="bg-gradient-to-r from-batman-gold to-batman-yellow text-batman-black px-8 py-4 rounded-lg font-semibold hover:shadow-lg hover:shadow-batman-gold/25 transition-all duration-300"
+                                className="btn btn-primary inline-flex items-center justify-center"
                                 whileHover={{ scale: 1.05, y: -2 }}
                                 whileTap={{ scale: 0.95 }}
                             >
@@ -97,7 +115,7 @@ const Hero = () => {
 
                             <motion.a
                                 href="#projects"
-                                className="border-2 border-batman-gold text-batman-gold px-8 py-4 rounded-lg font-semibold hover:bg-batman-gold hover:text-batman-black transition-all duration-300"
+                                className="btn btn-secondary inline-flex items-center justify-center"
                                 whileHover={{ scale: 1.05, y: -2 }}
                                 whileTap={{ scale: 0.95 }}
                             >
@@ -105,55 +123,58 @@ const Hero = () => {
                             </motion.a>
                         </motion.div>
 
-                        {/* Contact Info */}
+                        {/* Contact Info - Mobile responsive */}
                         <motion.div
-                            className="flex flex-wrap gap-6 pt-8"
+                            className="flex flex-wrap gap-4 md:gap-6 pt-6 md:pt-8 justify-center lg:justify-start text-sm md:text-base"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 1.2 }}
                         >
-                            <a href="mailto:babashankarsn@gmail.com" className="flex items-center gap-2 text-gray-400 hover:text-batman-gold transition-colors">
-                                <Mail size={20} />
-                                <span>babashankarsn@gmail.com</span>
+                            <a
+                                href="mailto:babashankarsn@gmail.com"
+                                className="flex items-center gap-2 text-gray-400 hover:text-batman-gold transition-colors p-2 rounded-lg hover:bg-batman-gold/5"
+                            >
+                                <Mail size={16} className="md:w-5 md:h-5" />
+                                <span className="hidden sm:inline">babashankarsn@gmail.com</span>
+                                <span className="sm:hidden">Email</span>
                             </a>
-                            <a href="tel:+918296189723" className="flex items-center gap-2 text-gray-400 hover:text-batman-gold transition-colors">
-                                <Phone size={20} />
-                                <span>+91 8296189723</span>
+                            <a
+                                href="tel:+918296189723"
+                                className="flex items-center gap-2 text-gray-400 hover:text-batman-gold transition-colors p-2 rounded-lg hover:bg-batman-gold/5"
+                            >
+                                <Phone size={16} className="md:w-5 md:h-5" />
+                                <span className="hidden sm:inline">+91 8296189723</span>
+                                <span className="sm:hidden">Phone</span>
                             </a>
-                            <a href="#" className="flex items-center gap-2 text-gray-400 hover:text-batman-gold transition-colors">
-                                <Github size={20} />
+                            <a
+                                href="#"
+                                className="flex items-center gap-2 text-gray-400 hover:text-batman-gold transition-colors p-2 rounded-lg hover:bg-batman-gold/5"
+                            >
+                                <Github size={16} className="md:w-5 md:h-5" />
                                 <span>GitHub</span>
                             </a>
-                            <a href="#" className="flex items-center gap-2 text-gray-400 hover:text-batman-gold transition-colors">
-                                <Linkedin size={20} />
+                            <a
+                                href="#"
+                                className="flex items-center gap-2 text-gray-400 hover:text-batman-gold transition-colors p-2 rounded-lg hover:bg-batman-gold/5"
+                            >
+                                <Linkedin size={16} className="md:w-5 md:h-5" />
                                 <span>LinkedIn</span>
                             </a>
                         </motion.div>
                     </motion.div>
 
-                    {/* Profile Image with Cape Animation */}
+                    {/* Profile Image with Enhanced Cape Animation */}
                     <motion.div
-                        className="relative flex justify-center items-center"
+                        className="relative flex justify-center items-center order-1 lg:order-2 mb-8 lg:mb-0"
                         initial={{ opacity: 0, x: 50 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 1, delay: 0.5 }}
                     >
-                        {/* Cape behind the image */}
-                        <motion.div
-                            className="cape absolute -z-10 bg-gradient-to-br from-batman-dark to-batman-black opacity-80"
-                            animate={{
-                                rotate: [-2, 2, -2],
-                                scaleY: [1, 1.05, 1],
-                            }}
-                            transition={{
-                                duration: 3,
-                                repeat: Infinity,
-                                ease: "easeInOut"
-                            }}
-                            style={{
-                                left: '-50px',
-                                top: '-20px',
-                            }}
+                        {/* Enhanced Cape Component */}
+                        <EnhancedCape
+                            size={window.innerWidth < 768 ? 'sm' : window.innerWidth < 1024 ? 'md' : 'lg'}
+                            intensity="normal"
+                            interactive={true}
                         />
 
                         {/* Profile Image */}
@@ -162,15 +183,16 @@ const Hero = () => {
                             whileHover={{ scale: 1.05 }}
                             transition={{ duration: 0.3 }}
                         >
-                            <div className="w-80 h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-batman-gold shadow-2xl shadow-batman-gold/25">
+                            <div className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-batman-gold shadow-2xl shadow-batman-gold/25">
                                 <img
                                     src="/profile.jpg"
-                                    alt="Baba Shankar SN"
+                                    alt="Baba Shankar SN - Software Engineer"
                                     className="w-full h-full object-cover"
+                                    loading="eager"
                                 />
                             </div>
 
-                            {/* Glowing effect */}
+                            {/* Enhanced Glowing effect */}
                             <motion.div
                                 className="absolute inset-0 rounded-full bg-gradient-to-r from-batman-gold/20 to-batman-yellow/20"
                                 animate={{
@@ -183,19 +205,57 @@ const Hero = () => {
                                     ease: "easeInOut"
                                 }}
                             />
+
+                            {/* Pulse ring effect */}
+                            <motion.div
+                                className="absolute inset-0 rounded-full border-2 border-batman-gold/30"
+                                animate={{
+                                    scale: [1, 1.2, 1],
+                                    opacity: [0.8, 0, 0.8],
+                                }}
+                                transition={{
+                                    duration: 3,
+                                    repeat: Infinity,
+                                    ease: "easeInOut"
+                                }}
+                            />
+                        </motion.div>
+
+                        {/* Floating Batman symbol */}
+                        <motion.div
+                            className="absolute top-4 right-4 w-8 h-8 md:w-12 md:h-12 opacity-30"
+                            animate={{
+                                rotate: [0, 360],
+                                scale: [0.8, 1.2, 0.8],
+                            }}
+                            transition={{
+                                duration: 8,
+                                repeat: Infinity,
+                                ease: "linear"
+                            }}
+                        >
+                            <div className="w-full h-full bg-batman-gold rounded-full flex items-center justify-center">
+                                <span className="font-batman text-batman-black text-xs md:text-sm font-bold">B</span>
+                            </div>
                         </motion.div>
                     </motion.div>
                 </div>
 
-                {/* Scroll Indicator */}
+                {/* Scroll Indicator - Mobile responsive */}
                 <motion.div
-                    className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-batman-gold"
+                    className="absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 text-batman-gold"
                     animate={{ y: [0, 10, 0] }}
                     transition={{ duration: 2, repeat: Infinity }}
                 >
-                    <ChevronDown size={32} />
+                    <div className="flex flex-col items-center space-y-2">
+                        <span className="text-xs md:text-sm font-gotham">Scroll Down</span>
+                        <ChevronDown size={24} className="md:w-8 md:h-8" />
+                    </div>
                 </motion.div>
             </div>
+
+            {/* Background overlay for mobile readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-batman-black/80 via-transparent to-batman-black/40 pointer-events-none lg:hidden" />
         </section>
     )
 }
